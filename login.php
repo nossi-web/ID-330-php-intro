@@ -1,28 +1,43 @@
 <?php
-
 /********
  * filename: login.php
  * author:
  * description:
  */
 
+ include("assets/classes/UserData.php");
 
+// dummy credentials for now
 $email = "your@email.com";
 $password = "drowssap";
-$authorized = FALSE;
 
-var_dump($_POST);
 
+// instantiate the new UserData Object, with default data. 
+$userData = new UserData();
+// instantiate the new UserData Object, with custom data
+//$userData = new UserData("John", "Johnson", "123 Johnson Street, Johnson, WI, 04911", "assets/images/user-profile-image.jpg");
+
+//var_dump($_POST);
+echo "<pre>";
+var_dump($userData);
+echo "</pre>";
+
+// if there's an 'email' index in the $_POST array
 if (isset($_POST["email"])) {
 
+    // and that email matches our user email and password
     if ($_POST["email"] == $email && $_POST["password"] == $password) {
 
-        session_start();
+        session_start();    // start the session, 
 
+        // assign the login email to the session super global
         $_SESSION["email"] = $_POST["email"];
+        $_SESSION["userData"] = $userData;
 
+        // redirect the user to the user page
+        // note: header changes must happen before any HTML 
         header("Location: user.php");
-        die();
+        die();  // this will mop up any previously running php processes on this page. it's a good practice.
     }
 }
 
@@ -62,7 +77,8 @@ if (isset($_POST["email"])) {
 
         <?php
 
-        if (isset($_POST["email"]) && $POST["email"] != $email) {
+        // if the user credentials don't match up, put out an alert message
+        if (isset($_POST["email"]) && $_POST["email"] != $email) {
 
             echo '
                 <div class="alert alert-danger" role="alert">
@@ -71,7 +87,6 @@ if (isset($_POST["email"])) {
                 ';
         }
         ?>
-
 
     </div><!-- /.container-fluid -->
 

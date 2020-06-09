@@ -6,7 +6,12 @@
  * description:
  */
 
- session_start();
+include("assets/classes/UserData.php");
+
+session_start();
+
+$userData = $_SESSION["userData"];
+
 
 ?>
 
@@ -21,21 +26,27 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Welcome <?php echo $userData->_firstName; ?></title>
 </head>
 
 <body>
+
+<pre>
+    <?php var_dump($userData); ?>
+</pre>
     <div class="container-fluid">
 
-        <h1>User Page</h1>
+        <h1>Welcome <?php echo $userData->_firstName; ?></h1>
 
         <div class="alert alert-primary" role="alert">
 
-        <?php
-            echo "WELCOME, " . $_SESSION["email"];
-        ?>
+            <?php
+            echo "WELCOME, " . $userData->_firstName;
+            ?>
 
         </div>
+
+        <img src="<?php echo $userData->_userProfileImage; ?>" alt="user profile image"/>
 
     </div><!-- /.container-fluid -->
 
