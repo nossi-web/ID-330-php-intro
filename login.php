@@ -5,6 +5,7 @@
  * description:
  */
 
+ // additional files need to be referenced before any code is to be run
  include("assets/classes/UserData.php");
 
 // dummy credentials for now
