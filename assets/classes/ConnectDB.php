@@ -29,7 +29,7 @@
         if ($this->_connection->connect_error) {
             return "Connection failed: " . $this->_connection->connect_error;
         } else {
-            return "COnnection established. Have a niec dae!";
+            return "Connection established. Have a niec dae!";
         }
 
     }
@@ -41,6 +41,13 @@
 
         return "Connection closed. How very responsible of you";
     }
+
+    function query($queryString) {
+
+        return $this->_connection->query($queryString);
+
+    }
+
 
  }
 
